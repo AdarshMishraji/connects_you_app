@@ -1,0 +1,85 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "connects_you_app",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "connects_you_app (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "connects_you_app (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "flutter_cryptography",
+            "cwd": "packages\\flutter_cryptography",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "flutter_cryptography (profile mode)",
+            "cwd": "packages\\flutter_cryptography",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "flutter_cryptography (release mode)",
+            "cwd": "packages\\flutter_cryptography",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "gdrive",
+            "cwd": "packages\\gdrive",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "gdrive (profile mode)",
+            "cwd": "packages\\gdrive",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "gdrive (release mode)",
+            "cwd": "packages\\gdrive",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "http_wrapper",
+            "cwd": "packages\\http_wrapper",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "http_wrapper (profile mode)",
+            "cwd": "packages\\http_wrapper",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "http_wrapper (release mode)",
+            "cwd": "packages\\http_wrapper",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
