@@ -2,14 +2,14 @@ class User {
   final String userId;
   final String name;
   final String email;
-  final String photo;
+  final String? photo;
   final String publicKey;
 
   const User({
     required this.userId,
     required this.name,
     required this.email,
-    required this.photo,
+    this.photo,
     required this.publicKey,
   });
 }
@@ -22,7 +22,7 @@ class AuthenticatedUser extends User {
     required String userId,
     required String name,
     required String email,
-    required String photo,
+    String? photo,
     required String publicKey,
     required this.privateKey,
     required this.token,
@@ -47,7 +47,7 @@ class LocalDBUser extends User {
     required String userId,
     required String name,
     required String email,
-    required String photo,
+    String? photo,
     required String publicKey,
     this.privateKey,
   }) : super(

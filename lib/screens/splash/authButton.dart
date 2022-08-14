@@ -17,7 +17,7 @@ class AuthButton extends StatelessWidget {
       // return;
       return await Provider.of<Auth>(context, listen: false)
           .authenticate()
-          .then((_) =>
+          .then((user) =>
               Navigator.of(context).pushReplacementNamed(MainScreen.routeName));
     } catch (error) {
       debugPrint('authenticationError $error');

@@ -22,19 +22,8 @@ class GDrive {
       'mimeType': 'application/json',
       'parents': "['appDataFolder']",
     };
-    final multipartBody = """
-          \r\n--${GDrive._driveBoundaryText}
-          \r\nContent-Type: ${GDrive._mimeType}; charset=UTF-8\r\n
-          \r\n{
-                "name": "${metaData['name']}", 
-                "description": "${metaData["description"]}", 
-                "parents": ${metaData["parents"]}, 
-                "mimeType": "${metaData["mimeType"]}"
-              }
-          \r\n--${GDrive._driveBoundaryText}
-          \r\nContent-Type: ${GDrive._mimeType}\r\n
-          \r\n$body
-          \r\n--${GDrive._driveBoundaryText}--""";
+    final multipartBody =
+        '\r\n--${GDrive._driveBoundaryText}\r\nContent-Type: ${GDrive._mimeType}; charset=UTF-8\r\n\r\n{"name": "${metaData['name']}", "description": "${metaData["description"]}", "parents": ${metaData["parents"]}, "mimeType": "${metaData["mimeType"]}"}\r\n--${GDrive._driveBoundaryText}\r\nContent-Type: ${GDrive._mimeType}\r\n\r\n$body\r\n--${GDrive._driveBoundaryText}--';
     return multipartBody;
   }
 

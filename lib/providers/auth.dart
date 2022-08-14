@@ -11,6 +11,7 @@ import 'package:connects_you/localDB/DBProvider.dart';
 import 'package:connects_you/localDB/localDBOps.dart';
 import 'package:connects_you/models/sharedKey.dart';
 import 'package:connects_you/models/user.dart';
+import 'package:connects_you/providers/socket.dart';
 import 'package:connects_you/server/responses/authenticatedUser.dart';
 import 'package:connects_you/server/server.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -71,6 +72,7 @@ class Auth with ChangeNotifier {
             privateKey: authUser.privateKey!,
             token: authUserTokenUserId.get('token', ''),
           );
+          SocketOps(authenticatedUser!.token);
           authStateMessage = AuthStatesMessages.sessionRetrieved;
           notifyListeners();
           return true;

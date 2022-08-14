@@ -6,6 +6,7 @@ import 'package:connects_you/screens/main/screens/account/screen.dart';
 import 'package:connects_you/screens/main/screens/chatRoom/screen.dart';
 import 'package:connects_you/screens/main/screens/inbox/screen.dart';
 import 'package:connects_you/screens/main/screens/notification/screen.dart';
+import 'package:connects_you/screens/main/screens/users/screen.dart';
 import 'package:connects_you/screens/splash/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -39,6 +40,7 @@ class Root extends StatelessWidget {
             routes: {
               SplashScreen.routeName: (_) => const SplashScreen(),
               MainScreen.routeName: (_) => const MainScreen(),
+              UsersScreen.routeName: (_) => const UsersScreen(),
               AccountScreen.routeName: (_) => const AccountScreen(),
               ChatRoomScreen.routeName: (_) => const ChatRoomScreen(),
               InboxScreen.routeName: (_) => const InboxScreen(),
