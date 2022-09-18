@@ -1,9 +1,8 @@
-import 'package:connects_you/models/user.dart';
-import 'package:connects_you/providers/auth.dart';
+// import 'package:connects_you/models/user.dart';
+// import 'package:connects_you/providers/auth.dart';
 import 'package:connects_you/screens/main/screens/users/userRow.dart';
-import 'package:connects_you/server/server.dart';
+// import 'package:connects_you/server/server.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class UsersScreen extends StatefulWidget {
   static const String routeName = '/users';
@@ -19,15 +18,18 @@ class UsersScreen extends StatefulWidget {
 class _UsersScreenState extends State<UsersScreen>
     with AutomaticKeepAliveClientMixin<UsersScreen> {
   bool _showSearchBox = false;
-  List<User>? _users;
-  final Map<String, User> _selectedUsers = {};
+  // List<User>? _users;
+  // final Map<String, User> _selectedUsers = {};
+  List<dynamic>? _users;
+  final Map<String, dynamic> _selectedUsers = {};
 
   Future _fetchAllUsers() async {
-    final token =
-        Provider.of<Auth>(context, listen: false).authenticatedUser?.token;
+    const token = "";
+    // Provider.of<Auth>(context, listen: false).authenticatedUser?.token;
     if (token != null) {
-      Response<List<User>?>? serverUsers =
-          await Server.DetailsOps.getAllUsers(token);
+      dynamic serverUsers;
+      // Response<List<User>?>? serverUsers =
+      //     await Server.DetailsOps.getAllUsers(token);
       if (serverUsers!.response != null) {
         setState(() {
           _users = serverUsers.response!;

@@ -1,9 +1,10 @@
-import 'package:connects_you/models/user.dart';
+// import 'package:connects_you/models/user.dart';
 import 'package:connects_you/widgets/avatar.dart';
 import 'package:flutter/material.dart';
 
 class UserRow extends StatelessWidget {
-  final User user;
+  // final User user;
+  final dynamic user;
   final bool isSelected;
   final Function() onLongPress;
   final Function() onTap;

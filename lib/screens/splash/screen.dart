@@ -1,8 +1,9 @@
 import 'package:connects_you/constants/locale.dart';
 import 'package:connects_you/constants/widget.dart';
-import 'package:connects_you/localDB/DBProvider.dart';
-import 'package:connects_you/providers/auth.dart';
-import 'package:connects_you/providers/settings.dart';
+import 'package:connects_you/logic/auth/auth.dart';
+import 'package:connects_you/logic/auth/auth_events.dart';
+import 'package:connects_you/logic/settings/settings.dart';
+import 'package:connects_you/repository/localDB/DBOps.dart';
 import 'package:connects_you/screens/main/screen.dart';
 import 'package:connects_you/screens/splash/authButton.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,8 +29,11 @@ class _SplashScreenState extends State<SplashScreen> {
     });
     Firebase.apps.isNotEmpty ? null : await Firebase.initializeApp();
     if (!mounted) return;
+  
+    context.read<AuthBloc>().add(const FetchAuthenticatedUser());
     final isAuthenticated =
-        await Provider.of<Auth>(context, listen: false).fetchAndSetAuthUser();
+        context.read<AuthBloc>().state.authenticatedUser != null;
+
     await Future.delayed(WidgetConstants.slowAnimation);
     setState(() {
       _futureState = ConnectionState.done;
@@ -49,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
     print('splash init');
     if (mounted) {
       Future.delayed(WidgetConstants.slowAnimation).then((_) async {
-        await DBProvider.getDB(); // initializing DB;
+        await context.read<DBOpsRepository>().initialiseDB();
         await _fetchAuthState();
       }).catchError((error) {
         debugPrint('$error');
@@ -61,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final selectedThemeMode = Provider.of<Settings>(context).theme;
+    final selectedThemeMode = context.watch<SettingsBloc>().state.themeMode;
     final mediaQuery = MediaQuery.of(context);
     final systemIconBrightness = selectedThemeMode == ThemeMode.light
         ? Brightness.dark

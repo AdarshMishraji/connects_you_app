@@ -1,14 +1,13 @@
 import 'package:circle_nav_bar/circle_nav_bar.dart';
 import 'package:connects_you/constants/customTheme.dart';
 import 'package:connects_you/constants/widget.dart';
-import 'package:connects_you/providers/settings.dart';
+// import 'package:connects_you/providers/settings.dart';
 import 'package:connects_you/screens/main/screens/account/screen.dart';
 import 'package:connects_you/screens/main/screens/inbox/screen.dart';
 import 'package:connects_you/screens/main/screens/notification/screen.dart';
 import 'package:connects_you/screens/main/screens/users/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   static const String routeName = '/main';
@@ -43,15 +42,15 @@ class _MainScreenState extends State<MainScreen>
     // DBProvider.deleteDB();
     // SecureStorage.instance.deleteAll();
     final theme = Theme.of(context);
-    final selectedThemeMode = Provider.of<Settings>(context).theme;
+    // final selectedThemeMode = Provider.of<Settings>(context).theme;
     final mediaQuery = MediaQuery.of(context);
-    final systemIconBrightness = selectedThemeMode == ThemeMode.light
-        ? Brightness.dark
-        : selectedThemeMode == ThemeMode.dark
-            ? Brightness.light
-            : mediaQuery.platformBrightness == Brightness.dark
-                ? Brightness.light
-                : Brightness.dark;
+    // final systemIconBrightness = selectedThemeMode == ThemeMode.light
+    // ? Brightness.dark
+    // : selectedThemeMode == ThemeMode.dark
+    //     ? Brightness.light
+    //     : mediaQuery.platformBrightness == Brightness.dark
+    //         ? Brightness.light
+    // : Brightness.dark;
     final List<Icon> icons = [
       Icon(Icons.chat_rounded,
           color: _screenIndex == 0 ? Colors.white : theme.primaryColorLight,
@@ -69,9 +68,9 @@ class _MainScreenState extends State<MainScreen>
     final overLayStyle = SystemUiOverlayStyle(
       statusBarColor: theme.backgroundColor,
       systemNavigationBarColor: theme.backgroundColor,
-      statusBarBrightness: systemIconBrightness,
-      statusBarIconBrightness: systemIconBrightness,
-      systemNavigationBarIconBrightness: systemIconBrightness,
+      // statusBarBrightness: systemIconBrightness,
+      // statusBarIconBrightness: systemIconBrightness,
+      // systemNavigationBarIconBrightness: systemIconBrightness,
     );
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
