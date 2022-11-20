@@ -1,5 +1,5 @@
 import 'package:circle_nav_bar/circle_nav_bar.dart';
-import 'package:connects_you/constants/customTheme.dart';
+import 'package:connects_you/theme/app_theme.dart';
 import 'package:connects_you/constants/widget.dart';
 // import 'package:connects_you/providers/settings.dart';
 import 'package:connects_you/screens/main/screens/account/screen.dart';
@@ -96,7 +96,7 @@ class _MainScreenState extends State<MainScreen>
           },
           inactiveIcons: icons,
           activeIcons: icons,
-          gradient: const LinearGradient(colors: CustomTheme.gradientColors),
+          gradient: const LinearGradient(colors: AppTheme.gradientColors),
           shadowColor: const Color.fromRGBO(0, 100, 255, 2),
           elevation: 5,
           padding: const EdgeInsets.all(WidgetConstants.spacing_xs),

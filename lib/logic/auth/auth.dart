@@ -1,23 +1,24 @@
 import 'dart:convert';
 
 import 'package:connects_you/config/google.dart';
-import 'package:connects_you/constants/secureStorageKeys.dart';
-import 'package:connects_you/data/models/authenticatedUser.dart';
-import 'package:connects_you/data/models/sharedKey.dart';
+import 'package:connects_you/constants/secure_storage_keys.dart';
+import 'package:connects_you/data/models/authenticated_user.dart';
+import 'package:connects_you/data/models/shared_key.dart';
 import 'package:connects_you/data/models/user.dart';
+import 'package:connects_you/constants/auth_constants.dart';
 import 'package:connects_you/helpers/secureStorage.dart';
 import 'package:connects_you/logic/auth/auth_events.dart';
 import 'package:connects_you/logic/auth/auth_states.dart';
-import 'package:connects_you/repository/gDriveOps/gDriveOps.dart';
-import 'package:connects_you/repository/localDB/DBOps.dart';
-import 'package:connects_you/repository/localDB/sharedKeysOps.dart';
-import 'package:connects_you/repository/localDB/userOps.dart';
-import 'package:connects_you/repository/secureStorage/secureStorage.dart';
+import 'package:connects_you/repository/gDriveOps/g_drive_ops.dart';
+import 'package:connects_you/repository/localDB/db_ops.dart';
+import 'package:connects_you/repository/localDB/shared_keys_ops.dart';
+import 'package:connects_you/repository/localDB/user_ops.dart';
+import 'package:connects_you/repository/secureStorage/secure_storage.dart';
 import 'package:connects_you/repository/server/auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_cryptography/diffieHellman.dart';
+import 'package:flutter_cryptography/diffie_hellman.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthBloc extends Bloc<AuthEvents, AuthStates> {
@@ -62,13 +63,19 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
     }
   }
 
-  Future _onLogin(AuthenticatedServerUser user,
-      {required String accessToken, required Emitter emit}) async {
+  Future _onLogin(
+    AuthenticatedServerUser user, {
+    required String accessToken,
+    required Emitter emit,
+  }) async {
     try {
       emit(const InProgressAuthState(
-          authStateMessage: AuthStatesMessages.fetchingAndSavingYourPrevData));
+        authStateMessage: AuthStatesMessages.fetchingAndSavingYourPrevData,
+      ));
+
       final userDriveResponse =
           await gDriveOpsRepository.getDriveUserData(user.userId);
+
       if (user.publicKey.isNotEmpty && userDriveResponse != null) {
         final privateKey = userDriveResponse['privateKey'];
         await userOpsRepository.insertLocalUsers([
@@ -76,7 +83,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
             userId: user.userId,
             name: user.name,
             email: user.email,
-            photo: user.photo,
+            photoUrl: user.photoUrl,
             publicKey: user.publicKey,
             privateKey: privateKey,
           )
@@ -85,7 +92,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
           userId: user.userId,
           name: user.name,
           email: user.email,
-          photo: user.photo,
+          photoUrl: user.photoUrl,
           publicKey: user.publicKey,
           privateKey: privateKey,
           token: user.token,
@@ -127,7 +134,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
           userId: user.userId,
           name: user.name,
           email: user.email,
-          photo: user.photo,
+          photoUrl: user.photoUrl,
           publicKey: publicKey,
           privateKey: privateKey,
         )
@@ -143,7 +150,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
         userId: user.userId,
         name: user.name,
         email: user.email,
-        photo: user.photo,
+        photoUrl: user.photoUrl,
         publicKey: publicKey,
         privateKey: privateKey,
         token: user.token,
@@ -184,12 +191,12 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
           );
 
           if (serverAuthUser != null) {
-            if (serverAuthUser.response.method == AuthMethod.login) {
+            if (serverAuthUser.response.method == AuthMethod.LOGIN) {
               emit(const InProgressAuthState(
                   authStateMessage: AuthStatesMessages.authenticatingYou));
               await _onLogin(serverAuthUser.response,
                   accessToken: authToken.accessToken!, emit: emit);
-            } else if (serverAuthUser.response.method == AuthMethod.signup) {
+            } else if (serverAuthUser.response.method == AuthMethod.SIGNUP) {
               emit(const InProgressAuthState(
                   authStateMessage: AuthStatesMessages.creatingYourAccount));
               await _onSignup(serverAuthUser.response,

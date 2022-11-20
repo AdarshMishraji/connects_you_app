@@ -3,9 +3,9 @@ import 'package:connects_you/constants/widget.dart';
 import 'package:connects_you/logic/auth/auth.dart';
 import 'package:connects_you/logic/auth/auth_events.dart';
 import 'package:connects_you/logic/settings/settings.dart';
-import 'package:connects_you/repository/localDB/DBOps.dart';
+import 'package:connects_you/repository/localDB/db_ops.dart';
 import 'package:connects_you/screens/main/screen.dart';
-import 'package:connects_you/screens/splash/authButton.dart';
+import 'package:connects_you/screens/splash/auth_button.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
     });
     Firebase.apps.isNotEmpty ? null : await Firebase.initializeApp();
     if (!mounted) return;
-  
+
     context.read<AuthBloc>().add(const FetchAuthenticatedUser());
     final isAuthenticated =
         context.read<AuthBloc>().state.authenticatedUser != null;

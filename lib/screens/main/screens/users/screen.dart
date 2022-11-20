@@ -1,6 +1,7 @@
 // import 'package:connects_you/models/user.dart';
 // import 'package:connects_you/providers/auth.dart';
-import 'package:connects_you/screens/main/screens/users/userRow.dart';
+import 'package:connects_you/logic/auth/auth.dart';
+import 'package:connects_you/screens/main/screens/users/user_row.dart';
 // import 'package:connects_you/server/server.dart';
 import 'package:flutter/material.dart';
 
@@ -24,27 +25,27 @@ class _UsersScreenState extends State<UsersScreen>
   final Map<String, dynamic> _selectedUsers = {};
 
   Future _fetchAllUsers() async {
-    const token = "";
-    // Provider.of<Auth>(context, listen: false).authenticatedUser?.token;
-    if (token != null) {
-      dynamic serverUsers;
-      // Response<List<User>?>? serverUsers =
-      //     await Server.DetailsOps.getAllUsers(token);
-      if (serverUsers!.response != null) {
-        setState(() {
-          _users = serverUsers.response!;
-          _selectedUsers.clear();
-        });
-      } else {
-        setState(() {
-          _users = [];
-          _selectedUsers.clear();
-        });
-        debugPrint('no _users');
-      }
-    } else {
-      debugPrint('no token');
-    }
+    // const token =
+    //     Provider.of<AuthBloc>(context, listen: false).authenticatedUser?.token;
+    // if (token != null) {
+    //   dynamic serverUsers;
+    //   // Response<List<User>?>? serverUsers =
+    //   //     await Server.DetailsOps.getAllUsers(token);
+    //   if (serverUsers!.response != null) {
+    //     setState(() {
+    //       _users = serverUsers.response!;
+    //       _selectedUsers.clear();
+    //     });
+    //   } else {
+    //     setState(() {
+    //       _users = [];
+    //       _selectedUsers.clear();
+    //     });
+    //     debugPrint('no _users');
+    //   }
+    // } else {
+    //   debugPrint('no token');
+    // }
   }
 
   _onTap(int index, [bool preSelectedMode = false]) {

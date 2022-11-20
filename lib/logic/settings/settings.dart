@@ -1,6 +1,6 @@
 import 'package:connects_you/data/models/setting.dart';
 import 'package:connects_you/logic/settings/settings_events.dart';
-import 'package:connects_you/repository/secureStorage/secureStorage.dart';
+import 'package:connects_you/repository/secureStorage/secure_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsBloc extends Bloc<SettingsEvents, Setting> {

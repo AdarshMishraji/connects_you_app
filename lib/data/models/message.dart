@@ -21,7 +21,7 @@ class Message {
   final String messageText;
   final String messageType;
   final String senderUserId;
-  final String recieverUserId;
+  final String receiverUserId;
   final String replyMessageId;
   final String roomId;
   final String haveThreadId;
@@ -36,7 +36,7 @@ class Message {
     required this.messageText,
     required this.messageType,
     required this.senderUserId,
-    this.recieverUserId = '',
+    this.receiverUserId = '',
     this.replyMessageId = '',
     required this.roomId,
     this.haveThreadId = '',

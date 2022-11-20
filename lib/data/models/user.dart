@@ -2,14 +2,14 @@ class User {
   final String userId;
   final String name;
   final String email;
-  final String? photo;
+  final String? photoUrl;
   final String publicKey;
 
   const User({
     required this.userId,
     required this.name,
     required this.email,
-    this.photo,
+    this.photoUrl,
     required this.publicKey,
   });
 }
@@ -22,7 +22,7 @@ class AuthenticatedUser extends User {
     required String userId,
     required String name,
     required String email,
-    String? photo,
+    String? photoUrl,
     required String publicKey,
     required this.privateKey,
     required this.token,
@@ -30,13 +30,13 @@ class AuthenticatedUser extends User {
           email: email,
           userId: userId,
           name: name,
-          photo: photo,
+          photoUrl: photoUrl,
           publicKey: publicKey,
         );
 
   @override
   String toString() {
-    return 'userId:$userId, name:$name, email:$email, photo:$photo, publicKey:$publicKey, privateKey:$privateKey, token:$token';
+    return 'userId:$userId, name:$name, email:$email, photo:$photoUrl, publicKey:$publicKey, privateKey:$privateKey, token:$token';
   }
 }
 
@@ -47,19 +47,19 @@ class LocalDBUser extends User {
     required String userId,
     required String name,
     required String email,
-    String? photo,
+    String? photoUrl,
     required String publicKey,
     this.privateKey,
   }) : super(
           email: email,
           userId: userId,
           name: name,
-          photo: photo,
+          photoUrl: photoUrl,
           publicKey: publicKey,
         );
 
   @override
   String toString() {
-    return 'userId:$userId, name:$name, email:$email, photo:$photo, publicKey:$publicKey, privateKey:$privateKey';
+    return 'userId:$userId, name:$name, email:$email, photo:$photoUrl, publicKey:$publicKey, privateKey:$privateKey';
   }
 }

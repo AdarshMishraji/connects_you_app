@@ -1,12 +1,11 @@
 import 'package:connects_you/data/models/message.dart';
-import 'package:connects_you/enums/room.dart';
 
 class Room {
   final String roomId;
   final String roomName;
-  final String roomLogo;
+  final String roomLogoUrl;
   final String roomDescription;
-  final RoomType roomType;
+  final String roomType;
   final String createdByUserId;
   final int createdAt; // timestamp in form of string
   final int updatedAt;
@@ -15,7 +14,7 @@ class Room {
   const Room({
     required this.roomId,
     required this.roomName,
-    required this.roomLogo,
+    required this.roomLogoUrl,
     required this.roomDescription,
     required this.roomType,
     required this.createdByUserId,
@@ -28,7 +27,7 @@ class Room {
 class RoomUser {
   final String roomId;
   final String userId;
-  final RoomUserRole userRole;
+  final String userRole;
   final int joinedAt;
 
   const RoomUser({

@@ -1,6 +1,4 @@
-// ignore_for_file: file_names
-
-import 'package:connects_you/extensions/iterable.dart';
+import 'package:dart_utils/dart_utils.dart';
 
 class TableNames {
   static const String users = 'users';
@@ -47,7 +45,7 @@ class UsersTableColumns {
   static const userId = 'userId';
   static const name = 'name';
   static const email = 'email';
-  static const photo = 'photo';
+  static const photoUrl = 'photoUrl';
   static const publicKey = 'publicKey';
   static const privateKey = 'privateKey';
 }
@@ -55,7 +53,7 @@ class UsersTableColumns {
 class RoomsTableColumns {
   static const roomId = 'roomId';
   static const roomName = 'roomName';
-  static const roomLogo = 'roomLogo';
+  static const roomLogoUrl = 'roomLogoUrl';
   static const roomDescription = 'roomDescription';
   static const roomType = 'roomType';
   static const createdByUserId = 'createdByUserId';
@@ -82,7 +80,7 @@ class MessagesTableColumns {
   static const messageText = 'messageText';
   static const messageType = 'messageType';
   static const senderUserId = 'senderUserId';
-  static const recieverUserId = 'recieverUserId';
+  static const receiverUserId = 'receiverUserId';
   static const roomId = 'roomId';
   static const replyMessageId = 'replyMessageId';
   static const sendAt = 'sendAt';
@@ -128,7 +126,7 @@ class DDLs {
           columnType: _TableConstants.text,
           columnProperties: _TableConstants.notnull),
       TableColumnInfo(
-          columnName: UsersTableColumns.photo,
+          columnName: UsersTableColumns.photoUrl,
           columnType: _TableConstants.text,
           columnProperties: _TableConstants.notnull),
       TableColumnInfo(
@@ -154,7 +152,7 @@ class DDLs {
         columnProperties: '',
       ),
       TableColumnInfo(
-        columnName: RoomsTableColumns.roomLogo,
+        columnName: RoomsTableColumns.roomLogoUrl,
         columnType: _TableConstants.text,
         columnProperties: '',
       ),
@@ -247,7 +245,7 @@ class DDLs {
         columnProperties: _TableConstants.notnull,
       ),
       TableColumnInfo(
-        columnName: MessagesTableColumns.recieverUserId,
+        columnName: MessagesTableColumns.receiverUserId,
         columnType: _TableConstants.text,
         columnProperties: '',
       ),
@@ -327,7 +325,7 @@ class DDLs {
     return """${_TableConstants.foreignKey} ($referencingProperty) ${_TableConstants.references} $tableName($referencedProperty) ${_TableConstants.updateAndDeleteRestrict}""";
   }
 
-  static String _createTableStatments(String tableName,
+  static String _createTableStatements(String tableName,
       [List<String> otherProperties = const []]) {
     return """${_TableConstants.createTableIfNotExists} $tableName (
         ${DDLs.tableProperties[tableName]!.map((props) => "${props.columnName} ${props.columnType} ${props.columnProperties}").toStringWithoutBrackets()} ${otherProperties.isEmpty ? '' : ', '}
@@ -336,29 +334,29 @@ class DDLs {
   }
 
   static Map<String, String> createTableStatements = {
-    TableNames.users: _createTableStatments(TableNames.users),
-    TableNames.rooms: _createTableStatments(TableNames.rooms, [
+    TableNames.users: _createTableStatements(TableNames.users),
+    TableNames.rooms: _createTableStatements(TableNames.rooms, [
       DDLs._foreignKey(RoomsTableColumns.createdByUserId, TableNames.users,
           UsersTableColumns.userId)
     ]),
-    TableNames.roomUsers: _createTableStatments(TableNames.roomUsers, [
+    TableNames.roomUsers: _createTableStatements(TableNames.roomUsers, [
       DDLs._foreignKey(RoomUsersTableColumns.userId, TableNames.users,
           UsersTableColumns.userId),
       DDLs._foreignKey(RoomUsersTableColumns.roomId, TableNames.rooms,
           RoomsTableColumns.createdByUserId)
     ]),
-    TableNames.sharedKeys: _createTableStatments(TableNames.sharedKeys),
+    TableNames.sharedKeys: _createTableStatements(TableNames.sharedKeys),
     TableNames.localEncryptedStorage:
-        _createTableStatments(TableNames.localEncryptedStorage),
+        _createTableStatements(TableNames.localEncryptedStorage),
     TableNames.messageThreads:
-        _createTableStatments(TableNames.messageThreads, [
+        _createTableStatements(TableNames.messageThreads, [
       DDLs._foreignKey(MessageThreadsTableColumns.createdByUserId,
           TableNames.users, UsersTableColumns.userId),
     ]),
-    TableNames.messages: _createTableStatments(TableNames.messages, [
+    TableNames.messages: _createTableStatements(TableNames.messages, [
       DDLs._foreignKey(MessagesTableColumns.senderUserId, TableNames.users,
           UsersTableColumns.userId),
-      DDLs._foreignKey(MessagesTableColumns.recieverUserId, TableNames.users,
+      DDLs._foreignKey(MessagesTableColumns.receiverUserId, TableNames.users,
           UsersTableColumns.userId),
       DDLs._foreignKey(MessagesTableColumns.roomId, TableNames.rooms,
           RoomsTableColumns.createdByUserId),
